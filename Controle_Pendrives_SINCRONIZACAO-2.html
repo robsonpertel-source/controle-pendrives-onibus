@@ -1,0 +1,204 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#294fc0"><title>Controle completo de pendrives</title><style>
+*{box-sizing:border-box}body{margin:0;background:#f1f3f4;color:#202124;font-family:Arial,sans-serif}header{position:sticky;top:0;z-index:3;background:#fff;padding:12px;border-bottom:1px solid #ccd0d5}h1{font-size:18px;margin:0 0 5px}.sub,.hint{font-size:12px;color:#5f6368}.tabs{display:flex;gap:6px;overflow-x:auto;margin-top:10px}.tab,button{font:inherit;cursor:pointer}.tab,.btn{border:1px solid #c8cdd2;background:#fff;border-radius:6px;padding:9px 11px;font-size:12px;font-weight:bold;white-space:nowrap}.tab.active{background:#dce7fb;color:#174ea6;border-color:#789bd5}main{padding:10px;max-width:1500px;margin:auto}.bar,.actions,.controls{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:8px 0}.bar{background:#fff;padding:9px;border:1px solid #ddd;border-radius:7px}.counter{font-size:14px;font-weight:bold;color:#a3261e}.counter strong{font-size:21px}.controls input{min-width:130px;flex:1;padding:9px;border:1px solid #c8cdd2;border-radius:5px}.busgrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px solid #888;border-left:1px solid #888;background:white}.bus{min-height:38px;border:0;border-right:1px solid #888;border-bottom:1px solid #888;background:#fff;font-weight:bold;font-size:13px}.bus.gray{background:#bfc4ca}.bus.green{background:#b7dfc3;color:#174b2a}.bus.blue{background:#8ec5f0;color:#123b5c}.bus.red{background:#e99b9b;color:#671616}.bus.black{background:#222;color:white}.bus .art-label{display:block;font-size:8px;font-weight:normal;line-height:10px;color:inherit;opacity:.85}.layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,1fr);gap:10px}.panel{background:#fff;border:1px solid #c8cdd2;border-radius:6px;overflow:hidden}.panel h2{font-size:14px;margin:0;padding:10px;background:#294fc0;color:white}.workers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.worker{border:1px solid #bbb;min-width:0}.worker.selected{outline:3px solid #fbbc04}.workerhead{padding:9px 4px;color:#fff;text-align:center;font-weight:bold;cursor:pointer}.robson{background:#3859b8}.mateus{background:#b83b35}.paulo{background:#36865a}.workerbody{padding:7px;min-height:60px}.tag{display:flex;justify-content:space-between;align-items:center;background:#e8eaed;padding:5px;margin:4px 0;font-size:12px;font-weight:bold}.tag.gray{background:#bfc4ca}.tag.green{background:#b7dfc3}.tag.blue{background:#8ec5f0}.tag.red{background:#e99b9b}.tag.black{background:#222;color:#fff}.openlist{padding:8px;display:flex;gap:5px;flex-wrap:wrap}.openitem{background:#8ec5f0;padding:5px 8px;font-weight:bold;font-size:12px}.catrow{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:4px 0;border-bottom:1px solid #ddd}.catrow input{width:100%;padding:7px;border:1px solid #bbb;border-radius:4px}.small{font-size:11px;color:#555}.danger{color:#a3261e}.hide{display:none!important}.employee-select{padding:8px;border-radius:5px;border:1px solid #bbb;background:white}.footer{font-size:11px;color:#666;margin-top:10px}.remaining-row{display:grid;grid-template-columns:minmax(95px,1fr) minmax(90px,1fr) minmax(90px,1fr);gap:8px;align-items:center;padding:7px;border-bottom:1px solid #ddd}.remaining-row.head{font-weight:bold;background:#f1f3f4}.remaining-row input{width:100%;min-width:0;padding:7px;border:1px solid #bbb;border-radius:4px}.remaining-fleet{font-size:11px;color:#555}@media(max-width:800px){.layout{grid-template-columns:1fr}}@media(max-width:520px){.busgrid{grid-template-columns:repeat(4,minmax(0,1fr))}.workers{grid-template-columns:1fr}.tab{padding:8px 9px}.counter strong{font-size:19px}}
+
+#loginGate{position:fixed;inset:0;z-index:20;background:#f1f3f4;display:flex;align-items:center;justify-content:center;padding:18px}
+#loginCard{width:min(420px,100%);background:#fff;border:1px solid #d0d5da;border-radius:10px;padding:22px;box-shadow:0 8px 30px #0002}
+#loginCard h2{margin:0 0 8px;color:#294fc0;font-size:20px}#loginCard p{font-size:13px;color:#5f6368;line-height:1.45}
+#loginCard input{width:100%;padding:12px;border:1px solid #c8cdd2;border-radius:6px;margin:6px 0;font-size:15px}
+#loginCard button{width:100%;padding:11px;margin-top:8px;border:0;border-radius:6px;background:#294fc0;color:#fff;font-weight:bold}
+#loginCard button.secondary{background:#e8eaed;color:#202124}#loginMessage{font-size:12px;min-height:18px;color:#a3261e;margin-top:8px}
+#syncStatus{font-size:11px;color:#36865a;margin-left:auto;white-space:nowrap}
+</style></head><body>
+<div id="loginGate"><div id="loginCard"><h2>Controle de Pendrives</h2><p>Entre com a conta compartilhada para acessar os mesmos registros no celular e no computador.</p><form id="loginForm"><input id="loginEmail" type="email" autocomplete="username" value="robsonpertel@gmail.com" required><input id="loginPassword" type="password" autocomplete="current-password" placeholder="Sua senha" required minlength="6"><button type="submit">ENTRAR</button></form><button class="secondary" id="createAccount">CRIAR ACESSO</button><button class="secondary" id="forgotPassword">ESQUECI MINHA SENHA</button><div id="loginMessage">Primeiro acesso? Digite uma senha e toque em CRIAR ACESSO. Depois confirme o e-mail recebido.</div></div></div>
+<header><h1>CONTROLE DE PENDRIVES — BILHETAGEM</h1><div class="sub">Controle independente por frota • sincronização compartilhada</div><div class="bar" style="margin:8px 0 0"><span id="syncStatus">Aguardando login…</span><button class="btn" id="logoutBtn" style="display:none">SAIR</button></div><div class="tabs"><button class="tab active" data-tab="Nova">Nova</button><button class="tab" data-tab="Santa Zita">Santa Zita</button><button class="tab" data-tab="Nova Catracas">Nova Catracas</button><button class="tab" data-tab="Santa Zita Catracas">Santa Zita Catracas</button><button class="tab" data-tab="Catracas">Catracas</button><button class="tab" data-tab="Carros restantes">Carros restantes</button><button class="tab" data-tab="Carros coletados">Carros coletados</button></div></header><main>
+<div id="catracasListView" class="hide"><section class="panel"><h2>CATRACAS</h2><div style="padding:10px"><p class="hint">Aqui aparecem somente os ônibus selecionados nas abas Nova Catracas ou Santa Zita Catracas que já têm número de catraca preenchido. Para levar ao Google Planilhas, copie as duas colunas.</p><div class="actions"><button class="btn" id="copyCatracas">COPIAR PARA GOOGLE PLANILHAS</button><span class="small" id="catracasCount"></span></div><div id="catracasTable"></div></div></section></div>
+<div id="normalView"><div class="bar"><div class="counter">ÔNIBUS FALTANDO PARA COLETAR: <strong id="remaining">0</strong></div><button class="btn" id="garageBtn">CARRO DE GARAGEM: DESATIVADO</button><span class="hint">Garagem ativa: toque nos ônibus para alternar preto/branco</span></div><div class="layout"><section class="panel"><h2 id="fleetTitle">FROTA NOVA</h2><div class="controls"><input id="search" placeholder="Pesquisar ônibus"><input id="busNum" inputmode="numeric" type="number" placeholder="Número do ônibus"><button class="btn" id="addBus">+ Adicionar</button><button class="btn danger" id="removeBus">Remover</button></div><div id="busgrid" class="busgrid"></div></section><section><div class="panel"><h2>FUNCIONÁRIOS — selecione quem vai receber o próximo ônibus</h2><div class="workers" id="workers"></div></div><div class="panel" style="margin-top:9px"><h2>VIAGENS ABERTAS</h2><div class="openlist" id="openlist"></div></div><div class="actions"><button class="btn" id="export">EXPORTAR CSV</button><button class="btn danger" id="resetRecords">RESETAR REGISTROS</button></div><div class="hint">Toques: 1º cinza (registrar); 2º verde; 3º viagem aberta; 4º vermelho; 5º branco.</div></section></div></div>
+<div id="catView" class="hide"><div class="bar"><strong id="catTitle">CATRACAS</strong><label>Funcionário para os próximos registros:</label><select id="catEmployee" class="employee-select"><option>Robson</option><option>Mateus</option><option>Paulo</option></select><span class="hint">1º toque registra (cinza); 2º toque desfaz e remove o campo da catraca.</span></div><div class="layout"><section class="panel"><h2>ÔNIBUS</h2><div class="controls"><input id="catSearch" placeholder="Pesquisar ônibus"></div><div id="catBusgrid" class="busgrid"></div></section><section><div id="catWorkers" class="workers"></div><div class="actions"><button class="btn danger" id="resetCatRecords">RESETAR CATRACAS</button><button class="btn danger" id="resetCatAll">RESETAR GERAL</button></div></section></div></div>
+<section id="remainingView" class="hide">
+ <div class="panel"><h2>CARROS RESTANTES — NOVA + SANTA ZITA</h2><div style="padding:10px">
+ <p class="hint">Escolha quem está coletando. Informe a fila e toque em COLETAR; o ônibus será transferido para a empresa correta, no nome do responsável.</p>
+ <div class="bar"><label for="remainingPerson"><strong>Responsável pela coleta:</strong></label><select id="remainingPerson" class="employee-select"><option>Robson</option><option>Mateus</option><option>Paulo</option></select></div>
+ <div class="small" id="remainingListCount"></div>
+ <div id="remainingColumn" style="margin-top:8px"></div>
+ </div></div></section>
+ <section id="collectedView" class="hide">
+<div class="panel"><h2>CARROS COLETADOS — NOVA + SANTA ZITA</h2><div style="padding:10px">
+<p class="hint">Todos os ônibus registrados pelos funcionários nas abas Nova e Santa Zita aparecem aqui automaticamente, um por linha.</p>
+<div class="actions"><button class="btn" id="copyCollected">COPIAR COLUNA PARA GOOGLE PLANILHAS</button><button class="btn danger" id="clearCollected">LIMPAR REGISTROS</button><span class="small" id="collectedCount"></span></div>
+<div id="collectedColumn" style="background:#fff;border:1px solid #ccc;border-radius:5px;padding:10px;white-space:pre-wrap;min-height:90px;font-family:monospace;font-size:14px"></div>
+</div></div></section>
+<div class="footer">Os registros são salvos no Supabase e sincronizados entre os aparelhos conectados à mesma conta. É necessária conexão com a internet.</div></main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.0/dist/umd/supabase.js"></script>
+<script>
+const baseFleets={"Nova":[17962,22168,22169,22170,22171,22172,22173,22174,22175,22176,22177,22178,22179,22180,22181,22182,22183,22184,22185,22186,22187,22188,22189,22190,22191,22192,22193,22194,22195,22196,22197,22198,22199,22200,22201,22202,22203,22204,22205,22206,22207,22208,22209,22211,22212,22213,22214,22215,22216,22217,22218,22219,22220,22221,22222,22223,22224,22225,22226,22227,22228,22229,22230,22231,22232,22233,22234,22235,22236,22237,22238,22239,22240,22241,22242,22243,22244,22245,22246,22247,22248,22249,22250,22251,22252,22253,22254,22255,22256,22257,22258,22259,22260,22261,22262,22264,22265,22266,22267,22268,22269,22270,22271,22272,22273,22274,22275,22276,22277,22278,22279,22280,22281,22282,22283,22284,22285,22286,22287,22288,22289,22290,22291,22292,22293,22294,22295,22296,22297,22298,22299,22300,22301,22302,22303,22304,22305,22306,22307,22308,22309,22310,22311,22312,22313,22314,22315,22316,22317,22318,22319,22320,22321,22322,22323,22324,22325,22326,22327,22328,22329,22330,22332,22333,22334,22335,22336,22337,22338,22339,22340,22341,22342,22343,22344,22345,22346,22347,22348,22349,22350,22351,22352,22353,22354,22355,22356,22357,22358,22359,22360,22361,22362,22363,22364,22365,22366,22367,22368,22369,22370,22371,22372,22373,22374,22375,22376,22377,22378,22379,22380,22381,22382,22383,22384,22385,22386,22387,22388,22389,22390,22391,22392,22393,22394,22395,22396,22397,22398,22399,22400,22401,22402,22403,22913,22926,22927,22928,22929,22930,22931,22932,22933,22934,22935,22936,22937,22938,22939,22940,22942,22943,22945,22946,22947,22948,22949,22974,22975,22976,22986,22987,22988],"Santa Zita":[21161,21162,21163,21164,21165,21166,21167,21168,21169,21170,21171,21172,21176,21177,21178,21190,21191,21192,21194,21195,21196,21197,21198,21199,21200,21201,21202,21203,21204,21205,21206,21227,21228,21229,21230,21231,21232,21233,21234,21235,21236,21237,21238,21239,21240,21241,21242,21243,21244,21245,21246,21247,21248,21250,21251,21252,21253,21254,21255,21256,21257,21258,21259,21260,21262,21263,21264,21265,21266,21267,21268,21269,21270,21271,21272,21273,21274,21275,21276,21277,21278,21279,21280,21281,21282,21283,21284,21285,21286,21287,21288,21289,21290,21291,21292,21293,21294,21295,21296,21297,21298,21299,21300,21301,21302,21303,21304,21305,21306,21307,21308,21309,21310,21311,21312,21313,21314,21315,21317,21318,21319,21320,21321,21322,21323,21324,21325,21326,21327,21328,21329,21330,21331,21332,21333,21334,21335,21336,21337,21338,21339]};
+const names=['Robson','Mateus','Paulo'];
+const articulados=new Set([22301,22302,22303,22304,22305,22306,22359,22360,22402,22403,22935,22936,22937,22938,22939,22940,22974,22975,22976,22986,22987,22988]);
+const carrosCofre=new Set([21199,21200,21201,21202]);
+const carrosMaoNaRoda=new Set([2105,2106,2107,2108,2109,2110]);
+function busLabel(n){let labels=[];if(articulados.has(+n))labels.push('Articulado');if(carrosCofre.has(+n))labels.push('Cofre');if(current==='Santa Zita' && carrosMaoNaRoda.has(+n))labels.push('Mão na Roda');return labels.map(label=>`<span class="art-label">${label}</span>`).join('');}
+const cls={Robson:'robson',Mateus:'mateus',Paulo:'paulo'};
+const tabs=['Nova','Santa Zita','Nova Catracas','Santa Zita Catracas'];
+let state={fleets:{},records:{},garage:{Nova:false,'Santa Zita':false},catSelected:{'Nova Catracas':'Robson','Santa Zita Catracas':'Robson'},catNumbers:{},fila:{}};
+for(const t of tabs){const base=t.replace(' Catracas','');state.fleets[t]=[...(baseFleets[base]||[])];state.records[t]={};}
+let current='Nova',selected={Nova:'Robson','Santa Zita':'Robson'},storage='controle_pendrives_completo_v3';
+try{const saved=JSON.parse(localStorage.getItem(storage)||'null');if(saved){for(const t of tabs){if(saved.fleets?.[t])state.fleets[t]=saved.fleets[t];else if(saved.fleets?.[t.replace(' Catracas','')])state.fleets[t]=[...saved.fleets[t.replace(' Catracas','')]];if(saved.records?.[t])state.records[t]=saved.records[t];}state.garage={...state.garage,...saved.garage};state.catSelected={...state.catSelected,...saved.catSelected};state.fila={...(saved.fila||{})};state.catNumbers={...(saved.catNumbers||{})};}}
+catch(e){}
+// Inclui estes seis carros somente na frota Santa Zita, inclusive em aparelhos com lista já salva.
+for(const n of [2105,2106,2107,2108,2109,2110]){if(!state.fleets['Santa Zita'].includes(n))state.fleets['Santa Zita'].push(n);}
+state.fleets['Santa Zita'].sort((a,b)=>a-b);
+const SUPABASE_URL='https://fpuxgbhicwscjxauelvb.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY='sb_publishable_5a0JnbrgmCpRKZYI1cUIBw_rD1UzpCg';
+const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
+const allowedEmail='robsonpertel@gmail.com';
+let cloudReady=false,applyingCloud=false,cloudSaveTimer=null,realtimeChannel=null;
+const syncStatus=document.getElementById('syncStatus');
+function setSyncStatus(message,ok=true){syncStatus.textContent=message;syncStatus.style.color=ok?'#36865a':'#a3261e';}
+function mergeState(incoming){
+ if(!incoming||typeof incoming!=='object'||!Object.keys(incoming).length)return false;
+ state={...state,...incoming,
+  fleets:{...state.fleets,...(incoming.fleets||{})},
+  records:{...state.records,...(incoming.records||{})},
+  garage:{...state.garage,...(incoming.garage||{})},
+  catSelected:{...state.catSelected,...(incoming.catSelected||{})},
+  catNumbers:{...state.catNumbers,...(incoming.catNumbers||{})},
+  fila:{...state.fila,...(incoming.fila||{})}};
+ for(const t of tabs){if(!Array.isArray(state.fleets[t]))state.fleets[t]=[...(baseFleets[t.replace(' Catracas','')]||[])];if(!state.records[t]||typeof state.records[t]!=='object')state.records[t]={};}
+ try{localStorage.setItem(storage,JSON.stringify(state));}catch(e){}
+ return true;
+}
+async function pushCloudState(){
+ if(!cloudReady||applyingCloud)return;
+ setSyncStatus('Salvando na nuvem…');
+ const {error}=await supabaseClient.from('shared_app_state').upsert({id:true,state:state,updated_at:new Date().toISOString()},{onConflict:'id'});
+ if(error){setSyncStatus('Erro ao sincronizar: '+error.message,false);return;}
+ setSyncStatus('Sincronizado • '+new Date().toLocaleTimeString('pt-BR'));
+}
+function save(){
+ try{localStorage.setItem(storage,JSON.stringify(state));}catch(e){}
+ if(cloudReady&&!applyingCloud){clearTimeout(cloudSaveTimer);cloudSaveTimer=setTimeout(pushCloudState,450);}
+}
+async function activateSharedApp(session){
+ const email=(session?.user?.email||'').toLowerCase();
+ if(email!==allowedEmail){await supabaseClient.auth.signOut();throw new Error('Esta conta não está autorizada para o aplicativo.');}
+ document.getElementById('loginGate').style.display='none';
+ document.getElementById('logoutBtn').style.display='inline-block';
+ setSyncStatus('Carregando registros compartilhados…');
+ const {data,error}=await supabaseClient.from('shared_app_state').select('state').eq('id',true).single();
+ if(error)throw new Error('Não consegui carregar os dados compartilhados: '+error.message);
+ const hasSharedState=mergeState(data.state);
+ cloudReady=true;
+ if(!hasSharedState)await pushCloudState();
+ if(!realtimeChannel){
+  realtimeChannel=supabaseClient.channel('controle-pendrives-shared-state')
+   .on('postgres_changes',{event:'UPDATE',schema:'public',table:'shared_app_state',filter:'id=eq.true'},payload=>{
+    const remote=payload.new?.state;
+    if(!remote||JSON.stringify(remote)===JSON.stringify(state))return;
+    applyingCloud=true;mergeState(remote);render();applyingCloud=false;
+    setSyncStatus('Atualizado por outro aparelho • '+new Date().toLocaleTimeString('pt-BR'));
+   }).subscribe(status=>{if(status==='SUBSCRIBED')setSyncStatus('Conectado • sincronização ativa');else if(status==='CHANNEL_ERROR'||status==='TIMED_OUT')setSyncStatus('Conexão em tempo real instável',false);});
+ }
+ render();
+}
+document.getElementById('loginForm').addEventListener('submit',async e=>{
+ e.preventDefault();const email=document.getElementById('loginEmail').value.trim().toLowerCase();const password=document.getElementById('loginPassword').value;
+ const msg=document.getElementById('loginMessage');
+ if(email!==allowedEmail){msg.textContent='Use o e-mail autorizado: '+allowedEmail;return;}
+ msg.textContent='Verificando acesso…';
+ const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});
+ if(error){msg.textContent='Não foi possível entrar: '+error.message;return;}
+ try{await activateSharedApp(data.session);msg.textContent='';}catch(err){msg.textContent=err.message;}
+});
+document.getElementById('forgotPassword').onclick=async()=>{
+ const email=document.getElementById('loginEmail').value.trim().toLowerCase();
+ const msg=document.getElementById('loginMessage');
+ if(email!==allowedEmail){msg.textContent='Use o e-mail autorizado: '+allowedEmail;return;}
+ msg.textContent='Enviando e-mail para redefinir sua senha…';
+ const {error}=await supabaseClient.auth.resetPasswordForEmail(email);
+ if(error){msg.textContent='Não foi possível enviar a recuperação: '+error.message;return;}
+ msg.textContent='Se o e-mail estiver cadastrado, enviaremos um link de recuperação para '+email+'. Confira a caixa de entrada e o Spam.';
+};
+document.getElementById('createAccount').onclick=async()=>{
+ const email=document.getElementById('loginEmail').value.trim().toLowerCase();const password=document.getElementById('loginPassword').value;const msg=document.getElementById('loginMessage');
+ if(email!==allowedEmail){msg.textContent='O acesso é exclusivo de '+allowedEmail;return;}
+ if(password.length<6){msg.textContent='Digite uma senha com pelo menos 6 caracteres para criar o acesso.';return;}
+ msg.textContent='Criando acesso…';
+ const {data,error}=await supabaseClient.auth.signUp({email,password});
+ if(error){msg.textContent='Não foi possível criar: '+error.message;return;}
+ if(data.session){try{await activateSharedApp(data.session);msg.textContent='';}catch(err){msg.textContent=err.message;}}
+ else msg.textContent='Acesso solicitado. Abra o e-mail '+email+' e confirme o cadastro; depois volte aqui e entre com a senha criada.';
+};
+document.getElementById('logoutBtn').onclick=async()=>{cloudReady=false;if(realtimeChannel){await supabaseClient.removeChannel(realtimeChannel);realtimeChannel=null;}await supabaseClient.auth.signOut();document.getElementById('loginGate').style.display='flex';document.getElementById('logoutBtn').style.display='none';setSyncStatus('Saiu da conta.');};
+(async()=>{const {data}=await supabaseClient.auth.getSession();if(data.session){try{await activateSharedApp(data.session);}catch(err){document.getElementById('loginMessage').textContent=err.message;}}})();
+function isCat(){return current.includes('Catracas') && current!=='Catracas'}
+function isCatracasList(){return current==='Catracas'}
+function isCollected(){return current==='Carros coletados'}
+function isRemaining(){return current==='Carros restantes'}
+function switchTab(t){current=t;document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===t));document.getElementById('normalView').classList.toggle('hide',isCat()||isCatracasList()||isCollected()||isRemaining());document.getElementById('catView').classList.toggle('hide',!isCat());document.getElementById('catracasListView').classList.toggle('hide',!isCatracasList());document.getElementById('collectedView').classList.toggle('hide',!isCollected());document.getElementById('remainingView').classList.toggle('hide',!isRemaining());render();}
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
+function cycleBus(n){let r=state.records[current][n];if(state.garage[current]){if(r?.status==='black')delete state.records[current][n];else state.records[current][n]={person:selected[current],status:'black'};}else{let s=r?.status||'white';let next={white:'gray',gray:'green',green:'blue',blue:'red',red:'white'}[s];if(next==='white')delete state.records[current][n];else{if(!r)r={person:selected[current]};r.status=next;state.records[current][n]=r;}}save();render();}
+function render(){if(isCatracasList()){renderCatracasList();return;}if(isCollected()){renderCollected();return;}if(isRemaining()){renderRemaining();return;}if(isCat()){renderCat();return;}document.getElementById('fleetTitle').textContent=current==='Nova'?'FROTA NOVA':'FROTA SANTA ZITA';document.getElementById('garageBtn').textContent='CARRO DE GARAGEM: '+(state.garage[current]?'ATIVADO':'DESATIVADO');document.getElementById('garageBtn').style.background=state.garage[current]?'#222':'#fff';document.getElementById('garageBtn').style.color=state.garage[current]?'white':'#202124';let q=document.getElementById('search').value.trim();document.getElementById('busgrid').innerHTML=[...state.fleets[current]].sort((a,b)=>a-b).filter(n=>String(n).includes(q)).map(n=>{let st=state.records[current][n]?.status||'white';return `<button class="bus ${st==='white'?'':st}" data-bus="${n}">${n}${busLabel(n)}</button>`}).join('');document.getElementById('remaining').textContent=state.fleets[current].filter(n=>!state.records[current][n]||state.records[current][n].status==='black').length;document.getElementById('workers').innerHTML=names.map(p=>{let entries=Object.entries(state.records[current]).filter(([n,r])=>r.person===p&&r.status!=='black').sort((a,b)=>+a[0]-+b[0]);return `<div class="worker ${selected[current]===p?'selected':''}"><div class="workerhead ${cls[p]}" data-person="${p}">${p}<div class="small" style="color:white">${entries.length} ônibus</div></div><div class="workerbody">${entries.map(([n,r])=>`<div class="tag ${r.status}" data-worker-bus="${n}" title="Toque para marcar como concluído" style="cursor:pointer"><span>${n}${busLabel(n)}${r.fila?' · Fila '+r.fila:''}</span> — ${({gray:'Registrado',green:'Concluído',blue:'Viagem aberta',red:'Atenção'})[r.status]}</div>`).join('')||'<span class="small">Nenhum ônibus</span>'}</div></div>`}).join('');let open=Object.entries(state.records[current]).filter(([n,r])=>r.status==='blue').sort((a,b)=>+a[0]-+b[0]);document.getElementById('openlist').innerHTML=open.map(([n])=>`<span class="openitem">${n}${busLabel(n)}</span>`).join('')||'<span class="small">Nenhuma viagem aberta</span>';}
+function getCollectedBuses(){
+ return ['Nova','Santa Zita'].flatMap(fleet=>
+  Object.entries(state.records[fleet]||{})
+   .filter(([n,r])=>r && r.status && r.status!=='black')
+   .map(([n,r])=>({bus:+n,fleet,person:r.person||''}))
+ ).sort((a,b)=>a.bus-b.bus||a.fleet.localeCompare(b.fleet));
+}
+function getRemainingBuses(){
+ return ['Nova','Santa Zita'].flatMap(fleet=>
+  (state.fleets[fleet]||[])
+   .filter(n=>{const r=state.records[fleet]?.[n];return !r || !r.status || r.status==='black';})
+   .map(bus=>({bus,fleet}))
+ ).sort((a,b)=>a.bus-b.bus||a.fleet.localeCompare(b.fleet));
+}
+function renderRemaining(){
+ const list=getRemainingBuses();
+ document.getElementById('remainingListCount').textContent=list.length+' ônibus restantes';
+ document.getElementById('remainingColumn').innerHTML=
+  '<div class="remaining-row head"><span>CARRO</span><span>EMPRESA</span><span>FILA / AÇÃO</span></div>'+
+  (list.map(x=>`<div class="remaining-row"><strong>${x.bus}</strong><span class="remaining-fleet">${x.fleet}</span><div><input inputmode="text" aria-label="Fila do ônibus ${x.bus}" placeholder="Fila" value="${String(state.fila[x.fleet+'_'+x.bus]||'').replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;')}" data-fila="${x.fleet}_${x.bus}"><button class="btn" style="margin-top:5px;width:100%" data-collect="${x.fleet}_${x.bus}">COLETAR</button></div></div>`).join('')||'<p class="hint">Nenhum carro restante. Todos foram registrados.</p>');
+}
+function renderCollected(){
+ const list=getCollectedBuses();
+ document.getElementById('collectedColumn').textContent=list.map(x=>x.bus).join('\n')||'Nenhum ônibus coletado ainda';
+ document.getElementById('collectedCount').textContent=list.length+' ônibus coletados';
+}
+document.getElementById('copyCollected').onclick=async()=>{const values=getCollectedBuses().map(x=>x.bus).join('\n');if(!values){alert('Ainda não há ônibus coletados para copiar.');return;}try{await navigator.clipboard.writeText(values);alert('Coluna copiada! Agora é só colar no Google Planilhas.');}catch(e){const ta=document.createElement('textarea');ta.value=values;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');alert('Coluna copiada! Agora é só colar no Google Planilhas.');}catch(err){alert('Não foi possível copiar automaticamente. Selecione a lista e copie manualmente.');}ta.remove();}};
+document.getElementById('clearCollected').onclick=()=>{
+ if(!confirm('Apagar os registros de ônibus coletados das frotas Nova e Santa Zita? Os números cadastrados e as filas serão mantidos.'))return;
+ state.records.Nova={};
+ state.records['Santa Zita']={};
+ save();
+ renderCollected();
+};
+function getCatracasList(){
+ // Só entram na lista os ônibus que foram selecionados na aba de catracas
+ // e que já receberam um número de catraca.
+ return ['Nova Catracas','Santa Zita Catracas'].flatMap(tab=>
+  Object.entries(state.records[tab]||{}).filter(([bus,r])=>{
+   const numero=String(state.catNumbers?.[tab+'_'+bus] ?? r?.catraca ?? '').trim();
+   return !!r && numero!=='';
+  }).map(([bus,r])=>({bus:+bus,tab,catraca:String(state.catNumbers?.[tab+'_'+bus] ?? r.catraca).trim()}))
+ ).sort((a,b)=>a.bus-b.bus||a.tab.localeCompare(b.tab));
+}
+function renderCatracasList(){
+ const list=getCatracasList();
+ document.getElementById('catracasCount').textContent=list.length+' ônibus com catraca preenchida';
+ document.getElementById('catracasTable').innerHTML='<div class="catrow" style="grid-template-columns:1fr 1fr;font-weight:bold;background:#f1f3f4;padding:9px"><span>NÚMERO DO CARRO</span><span>NÚMERO DA CATRACA</span></div>'+ (list.map(x=>`<div class="catrow" style="grid-template-columns:1fr 1fr;align-items:center;padding:6px"><strong>${x.bus}</strong><input inputmode="numeric" placeholder="Nº catraca" value="${String(x.catraca).replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;')}" data-master-catraca="${x.tab}|${x.bus}" /></div>`).join('')||'<p class="hint">Nenhum ônibus com número de catraca preenchido. Selecione um ônibus na aba Nova Catracas ou Santa Zita Catracas e informe o número da catraca.</p>');
+}
+document.getElementById('catracasTable').onchange=e=>{const key=e.target.dataset.masterCatraca;if(!key)return;const [tab,bus]=key.split('|');state.catNumbers[tab+'_'+bus]=e.target.value;if(state.records[tab]?.[bus])state.records[tab][bus].catraca=e.target.value;save();};
+document.getElementById('copyCatracas').onclick=async()=>{const rows=[['Número do carro','Número da catraca'],...getCatracasList().map(x=>[x.bus,x.catraca])];if(rows.length===1){alert('Ainda não há ônibus selecionados com número de catraca preenchido.');return;}const value=rows.map(r=>r.join('\t')).join('\n');try{await navigator.clipboard.writeText(value);alert('Lista copiada! Abra o Google Planilhas e cole na primeira célula.');}catch(e){const ta=document.createElement('textarea');ta.value=value;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');alert('Lista copiada! Abra o Google Planilhas e cole na primeira célula.');}catch(err){alert('Não foi possível copiar automaticamente.');}ta.remove();}};
+function renderCat(){document.getElementById('catTitle').textContent=current.toUpperCase();let q=document.getElementById('catSearch').value.trim();document.getElementById('catBusgrid').innerHTML=[...state.fleets[current]].sort((a,b)=>a-b).filter(n=>String(n).includes(q)).map(n=>`<button class="bus ${state.records[current][n]?'gray':''}" data-catbus="${n}">${n}${busLabel(n)}</button>`).join('');document.getElementById('catWorkers').innerHTML=names.map(p=>{let entries=Object.entries(state.records[current]).filter(([n,r])=>r.person===p).sort((a,b)=>+a[0]-+b[0]);return `<div class="worker"><div class="workerhead ${cls[p]}">${p} — CATRACAS</div><div class="workerbody"><div class="catrow"><b>ÔNIBUS</b><b>CATRACA</b></div>${entries.map(([n,r])=>`<div class="catrow"><strong>${n}${busLabel(n)}</strong><input inputmode="numeric" placeholder="Nº catraca" value="${String(state.catNumbers?.[current+'_'+n] ?? r.catraca ?? '').replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;')}" data-catraca="${n}" /></div>`).join('')||'<span class="small">Nenhum ônibus registrado</span>'}</div></div>`}).join('');}
+document.getElementById('remainingColumn').onchange=e=>{const key=e.target.dataset.fila;if(key!==undefined){state.fila[key]=e.target.value;save();}};
+document.getElementById('remainingColumn').onchange=e=>{const key=e.target.dataset.fila;if(key!==undefined){state.fila[key]=e.target.value;save();}};
+document.getElementById('remainingColumn').onclick=e=>{const b=e.target.closest('[data-collect]');if(!b)return;const [fleet,n]=b.dataset.collect.split('_');const person=document.getElementById('remainingPerson').value;const key=fleet+'_'+n;state.records[fleet][n]={person,status:'gray',fila:state.fila[key]||''};save();renderRemaining();};
+document.getElementById('busgrid').onclick=e=>{let b=e.target.closest('[data-bus]');if(b)cycleBus(+b.dataset.bus)};document.getElementById('workers').onclick=e=>{let bus=e.target.closest('[data-worker-bus]');if(bus){const n=bus.dataset.workerBus;const r=state.records[current][n];if(r){r.status='green';state.records[current][n]=r;save();render();}return;}let p=e.target.closest('[data-person]');if(p){selected[current]=p.dataset.person;render()}};document.getElementById('search').oninput=render;
+document.getElementById('garageBtn').onclick=()=>{state.garage[current]=!state.garage[current];save();render()};
+document.getElementById('addBus').onclick=()=>{let n=+document.getElementById('busNum').value;if(!n)return alert('Digite o número do ônibus.');if(state.fleets[current].includes(n))return alert('Ônibus já cadastrado.');state.fleets[current].push(n);state.fleets[current].sort((a,b)=>a-b);save();render()};document.getElementById('removeBus').onclick=()=>{let n=+document.getElementById('busNum').value;if(!state.fleets[current].includes(n))return alert('Ônibus não encontrado.');if(confirm('Remover ônibus e registro desta frota?')){state.fleets[current]=state.fleets[current].filter(x=>x!==n);delete state.records[current][n];save();render()}};
+
+document.getElementById('export').onclick=()=>{let rows=[['Frota','Onibus','Funcionario','Status']];Object.entries(state.records[current]).sort((a,b)=>+a[0]-+b[0]).forEach(([n,r])=>rows.push([current,n,r.person,r.status]));let csv='\uFEFF'+rows.map(r=>r.join(';')).join('\r\n');let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));a.download='registros_'+current.replaceAll(' ','_')+'.csv';a.click();URL.revokeObjectURL(a.href)};
+document.getElementById('resetRecords').onclick=()=>{if(confirm('Apagar os registros de Nova e Santa Zita? As listas de ônibus serão mantidas.')){state.records.Nova={};state.records['Santa Zita']={};save();render()}};
+document.getElementById('catEmployee').onchange=e=>{state.catSelected[current]=e.target.value;save()};document.getElementById('catBusgrid').onclick=e=>{let b=e.target.closest('[data-catbus]');if(!b)return;let n=b.dataset.catbus;if(state.records[current][n])delete state.records[current][n];else state.records[current][n]={person:state.catSelected[current],catraca:''};save();renderCat()};document.getElementById('catWorkers').onchange=e=>{let n=e.target.dataset.catraca;if(n){state.records[current][n].catraca=e.target.value;state.catNumbers[current+'_'+n]=e.target.value;save()}};document.getElementById('catSearch').oninput=renderCat;
+document.getElementById('resetCatRecords').onclick=()=>{if(confirm('Limpar os números e as catracas da lista dos funcionários, mantendo todos os ônibus registrados na cor cinza?')){for(const r of Object.values(state.records[current])){r.person='';r.catraca='';}for(const k of Object.keys(state.catNumbers)){if(k.startsWith(current+'_'))delete state.catNumbers[k];}save();renderCat()}};document.getElementById('resetCatAll').onclick=()=>{if(confirm('RESETAR GERAL somente desta aba Catracas?')){state.records[current]={};for(const k of Object.keys(state.catNumbers)){if(k.startsWith(current+'_'))delete state.catNumbers[k];}save();renderCat()}};
+render();
+</script></body></html>
